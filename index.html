@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Этапы формирования белорусской нации</title>
+  <link href="css/multiColumnTemplate.css" rel="stylesheet" type="text/css">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .primary_header, .footer {
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .columns {
+      display: flex;
+      justify-content: center; /* Центрирование по горизонтали */
+      align-items: center; /* Центрирование по вертикали */
+      flex: 1; /* Заполнение свободного пространства */
+      position: relative; /* Для кликов на левую и правую часть */
+      overflow: hidden; /* Прячем лишнее, если картинка выходит за пределы */
+    }
+
+    #comicPage {
+      object-fit: contain; /* Сохраняем пропорции и масштабируем изображение */
+      max-height: 95vh; /* Масштабирование по высоте экрана */
+      max-width: 100%; /* Масштабирование по ширине */
+      width: auto;
+      height: auto;
+      border: 2px solid #333;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Для нажатия на левую и правую часть */
+    .click-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%; /* Половина ширины блока */
+      cursor: pointer;
+    }
+
+    .left-zone {
+      left: 0;
+    }
+
+    .right-zone {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="primary_header">
+      <h1 class="title">Этапы формирования белорусской нации</h1>
+    </div>
+    <nav class="secondary_header" id="menu">
+      <ul>
+        <li>СДЕЛАНО</li>
+        <li>ДЛЯ</li>
+        <li>ПГУ</li>
+        <li>ИМЕНИ</li>
+        <li>ЕФРАСИНИ</li>
+        <li>ПОЛОЦКОЙ</li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Центрированный блок с изображением -->
+  <div class="columns">
+    <!-- Левые и правые зоны для клика -->
+    <div class="click-zone left-zone" onclick="prevPage()"></div>
+    <img id="comicPage" src="images/Страница 0.png" alt="Страница комикса">
+    <div class="click-zone right-zone" onclick="nextPage()"></div>
+  </div>
+
+  <footer class="secondary_header footer">
+    <div class="copyright">Перелистывание страниц: кликайте слева или справа по картинке</div>
+    <div class="copyright">
+       <a href="mailto:v.g.buykevich@students.psu.by" style="color:white;"></a>Комикс сделан в ознакомительных целях. Приятного прочтения!
+    </div>
+  </footer>
+</div>
+
+<!-- JavaScript для листания страниц -->
+<script>
+  const pages = [
+    'images/Страница 0.png',
+    'images/Страница 1.png',
+    'images/Страница 2.png',
+    'images/Страница 3.png'
+  ];
+
+  let currentPage = 0;
+
+  function updatePage() {
+    document.getElementById('comicPage').src = pages[currentPage];
+  }
+
+  function nextPage() {
+    currentPage = (currentPage + 1) % pages.length;
+    updatePage();
+  }
+
+  function prevPage() {
+    currentPage = (currentPage - 1 + pages.length) % pages.length;
+    updatePage();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') {
+      nextPage();
+    } else if (e.key === 'ArrowLeft') {
+      prevPage();
+    }
+  });
+
+  updatePage();
+</script>
+</body>
+</html>
